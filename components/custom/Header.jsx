@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Button } from "../ui/button";
 import Colors from "@/data/Colors";
 import { UserDetails } from "@/context/UserDetails";
-import { HardDriveUploadIcon, Save, SaveAllIcon } from "lucide-react";
+import { HardDriveUploadIcon, LogOutIcon, Save, SaveAllIcon } from "lucide-react";
 import Login from "./Login";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,6 +21,14 @@ function Header() {
       timeStamp: Date.now(),
     });
   };
+  
+        const logout = () => {
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("user"); // Remove user data
+          }
+          setUserDetail(null); // Clear user state
+          router.push('/')
+        };
 
   const Navigate = () => {
     router.push(`/profile`);
@@ -68,6 +76,10 @@ function Header() {
             >
               Deploy <HardDriveUploadIcon />
             </Button>
+            <Button variant="destructive"
+              className="text-white"
+            onCLick={logout}
+            >Logout <LogOutIcon/></Button>
 
             <Image
               onClick={Navigate}
@@ -77,6 +89,8 @@ function Header() {
               height={30}
               className="border rounded-full cursor-pointer"
             />
+
+            
           </div>
         )}
       </div>

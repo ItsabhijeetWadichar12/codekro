@@ -26,6 +26,13 @@ function WorkSpaceHist() {
         setWorkSpace(result);
         console.log(result);
     }
+
+    const logout = () => {
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("user"); // Remove user data
+        }
+        setUserDetail(null); // Clear user state
+      };
   return (
     <div>
         <h2 className='font-medium text-lg'>Your Chats</h2>

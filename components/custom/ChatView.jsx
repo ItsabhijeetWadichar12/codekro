@@ -18,7 +18,7 @@ import { UpdateToken } from "@/convex/users";
 function ChatView() {
   const { id } = useParams();
   const convex = useConvex();
-  const { messages, setMessages } = useContext(MessgaesDetails);
+  const { messages, setMessages } = useContext(MessgaesDetails) || { messages: [] };
   const { userDetail, setUserDetail } = useContext(UserDetails);
   const [userInput, setUserInput] = useState();
 
@@ -30,8 +30,10 @@ function ChatView() {
   const UpdateToken = useMutation(api.users.Updatetoken);
 
   useEffect(() => {
-    id && GetWorkSpaceData();
+    if(id)
+      GetWorkSpaceData();
   }, [id]);
+
   const GetWorkSpaceData = async () => {
     const result = await convex.query(api?.workspace?.GetWorkSpaceData, {
       workspaceId: id,
@@ -88,7 +90,7 @@ function ChatView() {
   return (
     <div className="relative h-[85vh] flex flex-col">
       <div className="flex-1 overflow-y-scroll scrollbar-hide pl-5">
-        {messages&&messages?.map((msg, index) => (
+        {Array.isArray(messages)&&messages?.map((msg, index) => (
           <div
             key={index}
             className="p-3 rounded-lg mb-2 flex gap-2 items-center leading-7"

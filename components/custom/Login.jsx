@@ -41,18 +41,16 @@ function Login({openDialog ,closeDialog }) {
         picture: user?.picture,
         uid: uuid4()
       })
-
-   
-
       if (typeof window!==undefined) {
         localStorage.setItem('user',JSON.stringify(user))
       }
-
       setUserDetail(user);
       closeDialog(false);
     },
     onError: errorResponse => console.log(errorResponse),
   });
+
+
 
 
   // console.log(userDetail);

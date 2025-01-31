@@ -6,6 +6,7 @@ import { useSidebar } from '../ui/sidebar';
 
 function SideBarFooter() {
     const {toggleSidebar} = useSidebar();
+    
     const router = useRouter();
     const options=[
         {
@@ -23,17 +24,14 @@ function SideBarFooter() {
             icon:User,
             path:'/profile'
         },  
-        {
-            name:'Sign Out',
-            icon:LogOut,
-            path:'/signout'
-        },
     ]
 
     const onOptionsClick=(option)=>{
         router.push(option.path);
         toggleSidebar(false);
     }
+
+      
   return (
     <div className='p-2 mb-10 '>
         {options.map((option,index)=>(

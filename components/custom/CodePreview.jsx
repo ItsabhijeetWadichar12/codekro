@@ -25,12 +25,9 @@ function CodePreview() {
         GetSandPackUser();
     },[sandpack&&click])
   return (
-    <div>
-   
       <SandpackPreview style={{ height: "80vh" }} showNavigator={true}
       ref={previewRef}
       />
-    </div>
   );
 }
 
