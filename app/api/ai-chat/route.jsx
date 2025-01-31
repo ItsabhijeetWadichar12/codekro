@@ -5,8 +5,8 @@ export async function POST(req) {
     const {prompt} = await req.json();
 
     try {
-        const result = await chatSession.sendMessage(prompt);
-        const AIresp= result.response.text();
+        const result = await chatSession?.sendMessage(prompt);
+        const AIresp= result?.response?.text();
 
         return NextResponse.json({result: AIresp});
     } catch (error) {
