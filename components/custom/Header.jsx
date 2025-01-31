@@ -78,7 +78,7 @@ function Header() {
             </Button>
             <Button variant="destructive"
               className="text-white"
-            onCLick={logout}
+            onClick={logout}
             >Logout <LogOutIcon/></Button>
 
             <Image

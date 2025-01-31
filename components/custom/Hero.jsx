@@ -1,7 +1,7 @@
 "use client";
 import Colors from "@/data/Colors";
 import Lookup from "@/data/Lookup";
-import { ArrowRight, Link, Sidebar } from "lucide-react";
+import { ArrowRight, Link, Loader2Icon, Sidebar } from "lucide-react";
 import React, { useContext, useState } from "react";
 import Login from "./Login";
 import { MessgaesDetails } from "@/context/MessagesDetails";
@@ -18,22 +18,26 @@ function Hero() {
   const { messages, setMessages } = useContext(MessgaesDetails);
   const [openDialog, setOpenDialog] = useState(false);
   const { userDetail, setUserDetail } = useContext(UserDetails);
+   const [loading, setLoading] = useState(false);
   const CreateWorkspace = useMutation(api?.workspace?.CreateWorkSpace);
   const router = useRouter();
     const {toggleSidebar}=useSidebar();
   
 
   const onGenerate = async (input) => {
+    
     if (!userDetail?.name) {
       setOpenDialog(true);
       return;
     }
+    setLoading(true);
     const msg = {
       role: "user",
       content: input,
     };
     setMessages(msg);
 
+    
     const workspaceId = await CreateWorkspace({
       user: userDetail._id,
       messages: [msg],
@@ -41,6 +45,7 @@ function Hero() {
 
     // console.log(workspaceId);
     router.push(`/workspace/${workspaceId}`);
+    setLoading(false);
   };
 
   return (
@@ -101,6 +106,13 @@ function Hero() {
         <div >
          <Footer/>
       </div>
+
+      {loading && (
+        <div className="p-10 bg-gray-900 opacity-80 absolute top-0 rounded-lg w-full h-full items-center justify-center flex flex-col">
+          <Loader2Icon className="animate-spin h-10 w-10 text-white" />
+          <h2 className="text-white">Generating your Files... </h2>
+        </div>
+      )}
       
 
      
